@@ -1,149 +1,46 @@
-body {
-  margin: 0;
-  background-color: #000;
-  color: #fff;
+window.getPokeData = async function() {
+  const pokemon = await getPokemon();
+  const randomPokemon = shuffle(pokemon);
+  const pokemonChoices = get4Pokemon(randomPokemon);
+  const [ firstPokemon ] = pokemonChoices;
+  const image = getPokemonImage(firstPokemon);
+
+  return { 
+    pokemonChoices: shuffle(pokemonChoices),
+    correct: {
+      image,
+      name: firstPokemon.name,
+    }
+  };
+};
+
+async function getPokemon() {
+  const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=800');
+  const pokemon = await res.json();
+  
+  return pokemon.results;
 }
 
-main {
-  position: relative;
-  width: 1150px;
-  background-image: url('https://res.cloudinary.com/dzynqn10l/image/upload/v1633196203/Msc/pokemon-bg_ig4uv3.jpg');
-  background-size: 110%;
-  background-repeat: no-repeat;
+function shuffle(unshuffled) {
+  const shuffled = unshuffled
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+  
+  return shuffled;
 }
 
-#pokemon-container {
-  height: 710px;
+function get4Pokemon(randomPokemon) {
+  return randomPokemon.splice(0, 4);
 }
 
-#answer {
-  display: none;
+function getPokemonImage({ url }) {
+  const number = getNumber(url);
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
+};
+
+function getNumber(url) {
+  const numberRegEx = /(\d+)\/$/;
+  return (url.match(numberRegEx) || [])[1];
 }
 
-#bg-overlay {
-  color: #fff;
-  position: absolute;
-  background-color: #dd1716;
-  right: 50px;
-  width: 340px;
-  height: 340px;
-  top: 120px;
-  border-radius: 50%;
-}
-
-#text-overlay {
-  position: absolute;
-  right: 40px;
-  top: 200px;
-  background-color: #ffcb02;
-  border: solid 7px #2c70ae;
-  padding: 20px;
-  min-width: 260px;
-  font-family: 'Bangers', Arial, sans-serif;
-  font-size: 36px;
-  letter-spacing: 1.2px;
-  color: #3ea2fe;
-  text-shadow: 2px 2px #1d366c;
-  border-radius: 20px;
-  text-align: center;
-}
-
-#controls {
-  position: relative;
-  padding: 20px 40px;
-}
-
-button {
-  background: #fff;
-  border: none;
-  color: #3e7ae7;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 10px 36px;
-  border-radius: 8px;
-  text-transform: uppercase;
-  box-shadow: 0px 4px 10px 1px;
-  cursor: pointer;
-  transition: all .2s ease-out;
-}
-
-button:hover {
-  box-shadow: 0px 4px 10px 4px;
-  background-color: #fff6d1;
-}
-
-button.correct,
-button.incorrect {
-  color: #d9fcd9;
-  box-shadow: none;
-}
-
-button.correct {
-  background: #0dff0d;
-}
-
-button.incorrect {
-  background: #ea2e25;
-}
-
-#options {
-position: absolute;
-  top: -56px;
-  left: 39px;
-}
-
-.passed button {
-  background-color: #4CAF50;
-}
-
-#pokeball {
-  width: 156px;
-  margin: 300px 0 0 300px;
-  position: absolute;
-  visibility: hidden;
-  animation: wiggle 1.35s infinite;
-}
-
-#pokemon-image {
-  margin: 325px 0 0 325px;
-  transform: scale(5);
-  filter: brightness(0);
-  transition: filter .5s ease-out;
-  position: absolute;
-  left: 0;
-}
-
-main.fetching #pokeball {
-  visibility: visible;
-}
-
-main.fetching #pokemon-image {
-  visibility: hidden;
-  display: none;
-}
-
-main.fetching #choices {
-  display: none;
-}
-
-main.revealed #pokemon-image {
-  filter: none;
-}
-
-main.revealed #answer {
-  display: block;
-}
-
-#choices {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 12px;
-}
-
-@keyframes wiggle {
-  0% { transform: rotate(0deg); }
-  80% { transform: rotate(0deg); }
-  85% { transform: rotate(6deg); }
-  95% { transform: rotate(-6deg); }
-  100% { transform: rotate(0deg); }
-}
