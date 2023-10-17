@@ -86,10 +86,14 @@ button.incorrect {
   background: #ea2e25;
 }
 
-#play {
-  position: absolute;
+#options {
+position: absolute;
   top: -56px;
   left: 39px;
+}
+
+.passed button {
+  background-color: #4CAF50;
 }
 
 #pokeball {
