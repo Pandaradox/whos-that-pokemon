@@ -6,7 +6,7 @@ const choices = document.querySelector('#choices');
 const playBtn = document.querySelector('#play');
 const points = document.querySelector('#points')
 const time = document.querySelector('#time')
-const qualifierScore = 12; //17 for challenging
+const qualifierScore = 15;
 
 let isPlaying = false;
 let score = 0;
