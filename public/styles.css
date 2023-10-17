@@ -6,14 +6,14 @@ body {
 
 main {
   position: relative;
-  width: 575px;
+  width: 1150px;
   background-image: url('https://res.cloudinary.com/dzynqn10l/image/upload/v1633196203/Msc/pokemon-bg_ig4uv3.jpg');
   background-size: 110%;
   background-repeat: no-repeat;
 }
 
 #pokemon-container {
-  height: 355px;
+  height: 710px;
 }
 
 #answer {
@@ -24,21 +24,21 @@ main {
   color: #fff;
   position: absolute;
   background-color: #dd1716;
-  right: 25px;
-  width: 170px;
-  height: 170px;
-  top: 60px;
+  right: 50px;
+  width: 340px;
+  height: 340px;
+  top: 120px;
   border-radius: 50%;
 }
 
 #text-overlay {
   position: absolute;
-  right: 20px;
-  top: 100px;
+  right: 40px;
+  top: 200px;
   background-color: #ffcb02;
   border: solid 7px #2c70ae;
   padding: 20px;
-  min-width: 130px;
+  min-width: 260px;
   font-family: 'Bangers', Arial, sans-serif;
   font-size: 36px;
   letter-spacing: 1.2px;
@@ -97,16 +97,16 @@ position: absolute;
 }
 
 #pokeball {
-  width: 78px;
-  margin: 144px 0 0 144px;
+  width: 156px;
+  margin: 300px 0 0 300px;
   position: absolute;
   visibility: hidden;
   animation: wiggle 1.35s infinite;
 }
 
 #pokemon-image {
-  margin: 135px 0 0 140px;
-  transform: scale(2.5);
+  margin: 325px 0 0 325px;
+  transform: scale(5);
   filter: brightness(0);
   transition: filter .5s ease-out;
   position: absolute;
